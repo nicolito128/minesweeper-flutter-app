@@ -289,7 +289,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
           title: Text(title, style: TextStyle(color: palette.secondary)),
           backgroundColor: palette.background,
           content: Text(
-            'Tiempo: $_formattedTime',
+            'Time: $_formattedTime',
             style: TextStyle(color: palette.secondary, fontSize: 16),
           ),
           actions: [
