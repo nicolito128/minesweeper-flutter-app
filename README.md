@@ -2,12 +2,12 @@
 
 Un clon moderno y responsivo del clásico juego Buscaminas (Minesweeper) construido con Flutter. Diseñado especialmente para dispositivos móviles, cuenta con controles táctiles, soporte para hacer zoom-in y zoom-out, y un sistema de temas para pesonalizar la experiencia de cada jugador.
 
-## Capturas de Pantalla
+## Capturas de pantalla
 
 <div align="center">
-  <img src="assets/screenshots/screen1.png" alt="Pantalla de inicio" width="300" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/screenshots/screen2.png" alt="Pantalla de juego" width="300" />
+  <img src="assets/screenshots/screen1.png" alt="Pantalla de inicio" width="850" />
+  <br>
+  <img src="assets/screenshots/screen2.png" alt="Pantalla de juego" width="850" />
 </div>
 
 ## Características
