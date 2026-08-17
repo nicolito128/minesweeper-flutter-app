@@ -28,3 +28,6 @@ flutter pub get
 flutter run
 ```
 
+# Créditos
+
+* **Icono de la aplicación**: Agradecimientos a [Kenney](https://kenney.nl/) por sus assets libres y gratuitos, ya que se hizo uso de [Pattern Pack Extra](https://kenney.nl/assets/pattern-pack-extra).
