@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minesweeper/settings.dart';
 import 'package:minesweeper/utils/colors.dart';
+import 'package:minesweeper/utils/preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -66,6 +67,7 @@ class SettingsScreenState extends State<SettingsScreen> {
           onTap: () {
             setState(() {
               globalSettings.palette = paletteOption;
+              UserPreferences.theme = paletteOption.id;
             });
           },
           child: Container(
@@ -181,4 +183,3 @@ class _ColorCircle extends StatelessWidget {
     );
   }
 }
-

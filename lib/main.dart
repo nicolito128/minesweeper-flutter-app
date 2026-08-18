@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:minesweeper/screens/start.dart';
 import 'package:minesweeper/settings.dart';
+import 'package:minesweeper/utils/preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await UserPreferences.init();
+
   runApp(const App());
 }
 

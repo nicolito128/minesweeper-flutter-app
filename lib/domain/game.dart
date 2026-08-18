@@ -6,9 +6,9 @@ import 'package:minesweeper/domain/cell.dart';
 enum GameResult { playing, playerLost, playerWon }
 
 class Game {
-  int width;
-  int height;
-  int totalMines;
+  final int width;
+  final int height;
+  final int totalMines;
   late int seed;
   late GameState state;
 
