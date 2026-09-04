@@ -32,6 +32,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
   Timer? _timer;
   int _elapsedSeconds = 0;
   bool _timerStarted = false;
+  bool _isPaused = false;
 
   @override
   @mustCallSuper
@@ -49,11 +50,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
   void _startTimer() {
     if (_timerStarted) return;
     _timerStarted = true;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _elapsedSeconds++;
-      });
-    });
+    _startTimerPeriod();
   }
 
   void _stopTimer() {
@@ -85,6 +82,18 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
         title: Text('Minesweeper', style: TextStyle(color: palette.secondary)),
         elevation: 0,
         iconTheme: IconThemeData(color: palette.secondary),
+        leadingWidth: 112,
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const BackButton(),
+            IconButton(
+              tooltip: _isPaused ? 'Resume game' : 'Pause game',
+              icon: Icon(_isPaused ? Icons.play_arrow : Icons.pause),
+              onPressed: _togglePause,
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -92,11 +101,16 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             _buildHeader(palette),
 
             Expanded(
-              child: InteractiveViewer(
-                minScale: 0.5,
-                maxScale: 4.0,
-                boundaryMargin: const EdgeInsets.all(double.infinity),
-                child: Center(child: buildBoard()),
+              child: Stack(
+                children: [
+                  InteractiveViewer(
+                    minScale: 0.5,
+                    maxScale: 4.0,
+                    boundaryMargin: const EdgeInsets.all(double.infinity),
+                    child: Center(child: buildBoard()),
+                  ),
+                  if (_isPaused) _buildPauseOverlay(palette),
+                ],
               ),
             ),
 
@@ -160,6 +174,45 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildPauseOverlay(Palette palette) {
+    return Positioned.fill(
+      child: ColoredBox(
+        color: palette.background.withValues(alpha: 0.95),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.pause_circle_outline,
+                color: palette.secondary,
+                size: 56,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Game paused',
+                style: TextStyle(
+                  color: palette.secondary,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: _togglePause,
+                icon: const Icon(Icons.play_arrow),
+                label: const Text('Continue'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: palette.secondary,
+                  foregroundColor: palette.primary,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -256,12 +309,36 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
   void startNewGame() {
     _resetTimer();
     setState(() {
+      _isPaused = false;
       game = Game(widget.gameWidth, widget.gameHeight, widget.gameMines);
     });
   }
 
-  void revealCell(Cell cell) {
+  void _togglePause() {
     if (game.status() != GameResult.playing) return;
+
+    setState(() {
+      _isPaused = !_isPaused;
+    });
+
+    if (_isPaused) {
+      _timer?.cancel();
+    } else if (_timerStarted) {
+      _startTimerPeriod();
+    }
+  }
+
+  void _startTimerPeriod() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted || _isPaused) return;
+      setState(() {
+        _elapsedSeconds++;
+      });
+    });
+  }
+
+  void revealCell(Cell cell) {
+    if (_isPaused || game.status() != GameResult.playing) return;
 
     _startTimer();
 
@@ -272,7 +349,7 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
   }
 
   void flagCell(Cell cell) {
-    if (game.status() != GameResult.playing) return;
+    if (_isPaused || game.status() != GameResult.playing) return;
 
     _startTimer();
 
