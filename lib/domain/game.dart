@@ -9,6 +9,7 @@ class Game {
   final int width;
   final int height;
   final int totalMines;
+  final int totalFlags = 0;
   late int seed;
   late GameState state;
 
@@ -75,9 +76,6 @@ class GameState {
     }
 
     if (cell.isRevealed) return;
-    if (cell.isFlagged) {
-      toggleFlag(cell.x, cell.y);
-    }
 
     cell.reveal();
     totalRevealed++;
@@ -166,17 +164,15 @@ class GameState {
   void _onEmptyRevealed(Cell revealed) {
     for (final nb in board.neighbors(revealed.x, revealed.y)) {
       if (!nb.isRevealed) {
-        switch (nb.runtimeType) {
-          case Empty:
-            nb.reveal();
-            totalRevealed++;
-            _onEmptyRevealed(nb);
-            break;
+        if (nb.isFlagged) {
+          continue;
+        }
 
-          case Count:
-            nb.reveal();
-            totalRevealed++;
-            break;
+        nb.reveal();
+        totalRevealed++;
+
+        if (nb is Empty) {
+          _onEmptyRevealed(nb);
         }
       }
     }

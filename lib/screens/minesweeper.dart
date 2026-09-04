@@ -144,6 +144,21 @@ class _MinesweeperScreenState extends State<MinesweeperScreen> {
               ),
             ],
           ),
+          Row(
+            children: [
+              Icon(Icons.flag, color: palette.secondary, size: 20),
+              const SizedBox(width: 4),
+              Text(
+                '${game.state.totalFlags}',
+                style: TextStyle(
+                  color: palette.secondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

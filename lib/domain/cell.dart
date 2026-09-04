@@ -9,6 +9,7 @@ abstract class Cell {
 
   void reveal() {
     isRevealed = true;
+    isFlagged = false;
   }
 
   void toggleFlag() {
