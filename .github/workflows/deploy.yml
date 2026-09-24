@@ -27,7 +27,7 @@ jobs:
         run: flutter pub get
 
       - name: Compile for web
-        run: flutter build web --release --base-href "/minesweeper/"
+        run: flutter build web --release --base-href "/minesweeper-flutter-app/"
 
       - name: Setup Github Pages
         uses: actions/configure-pages@v5
