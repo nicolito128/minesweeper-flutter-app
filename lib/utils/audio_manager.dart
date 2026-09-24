@@ -10,6 +10,7 @@ class AudioManager {
   static bool _usePlayer1 = true;
 
   static bool _isInitialized = false;
+  static bool _bgmStarted = false;
 
   static Future<void> init() async {
     if (_isInitialized) return;
@@ -23,6 +24,17 @@ class AudioManager {
   static Future<void> playBackgroundMusic() async {
     await _bgmPlayer.setReleaseMode(ReleaseMode.loop);
     await _bgmPlayer.play(AssetSource('sounds/bgm.ogg'));
+  }
+
+  static Future<void> ensureBackgroundMusicStarted() async {
+    if (_bgmStarted || !_isInitialized) return;
+    _bgmStarted = true;
+
+    try {
+      await playBackgroundMusic();
+    } catch (e) {
+      _bgmStarted = false;
+    }
   }
 
   static Future<void> stopBackgroundMusic() async {

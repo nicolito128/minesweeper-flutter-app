@@ -7,7 +7,7 @@ class UserPreferences {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static String get theme => _prefs.getString('theme') ?? 'classic';
+  static String get theme => _prefs.getString('theme') ?? 'hackerman';
   static set theme(String value) => _prefs.setString('theme', value);
 
   static Future<void> clearAll() async {

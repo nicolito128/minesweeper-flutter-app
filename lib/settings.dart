@@ -5,7 +5,7 @@ class Settings {
   late Palette palette;
 
   new() {
-    palette = paletteKV[UserPreferences.theme] ?? paletteKV["hackerman"]!;
+    palette = paletteKV[UserPreferences.theme] ?? paletteList[0];
   }
 }
 

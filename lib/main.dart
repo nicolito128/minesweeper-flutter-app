@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:minesweeper/screens/start.dart';
 import 'package:minesweeper/settings.dart';
 import 'package:minesweeper/utils/audio_manager.dart';
@@ -7,9 +9,12 @@ import 'package:minesweeper/utils/preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  if (kIsWeb) {
+    BrowserContextMenu.disableContextMenu();
+  }
+
   await UserPreferences.init();
   await AudioManager.init();
-  await AudioManager.playBackgroundMusic();
 
   runApp(const App());
 }
@@ -33,6 +38,7 @@ class App extends StatelessWidget {
         return Listener(
           onPointerDown: (_) {
             AudioManager.playClick();
+            AudioManager.ensureBackgroundMusicStarted();
           },
           child: child,
         );
