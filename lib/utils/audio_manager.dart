@@ -14,12 +14,15 @@ class AudioManager {
   static Future<void> init() async {
     if (_isInitialized) return;
 
+    await _bgmPlayer.setVolume(0.2);
+    await _sfxPlayer1.setVolume(0.1);
+    await _sfxPlayer2.setVolume(0.1);
     _isInitialized = true;
   }
 
   static Future<void> playBackgroundMusic() async {
-    _bgmPlayer.setReleaseMode(ReleaseMode.loop);
-    await _bgmPlayer.play(AssetSource('sounds/bgm.mp3'));
+    await _bgmPlayer.setReleaseMode(ReleaseMode.loop);
+    await _bgmPlayer.play(AssetSource('sounds/bgm.ogg'));
   }
 
   static Future<void> stopBackgroundMusic() async {
@@ -31,10 +34,10 @@ class AudioManager {
 
     if (_usePlayer1) {
       await _sfxPlayer1.stop();
-      await _sfxPlayer1.play(AssetSource('sounds/bubble-pop.wav'), volume: 0.7);
+      await _sfxPlayer1.play(AssetSource('sounds/bubble-pop.ogg'), volume: 0.7);
     } else {
       await _sfxPlayer2.stop();
-      await _sfxPlayer2.play(AssetSource('sounds/bubble-pop.wav'), volume: 0.7);
+      await _sfxPlayer2.play(AssetSource('sounds/bubble-pop.ogg'), volume: 0.7);
     }
 
     _usePlayer1 = !_usePlayer1;
@@ -45,10 +48,10 @@ class AudioManager {
 
     if (_usePlayer1) {
       await _sfxPlayer1.stop();
-      await _sfxPlayer1.play(AssetSource('sounds/click.wav'), volume: 0.7);
+      await _sfxPlayer1.play(AssetSource('sounds/click.ogg'), volume: 0.7);
     } else {
       await _sfxPlayer2.stop();
-      await _sfxPlayer2.play(AssetSource('sounds/click.wav'), volume: 0.7);
+      await _sfxPlayer2.play(AssetSource('sounds/click.ogg'), volume: 0.7);
     }
 
     _usePlayer1 = !_usePlayer1;

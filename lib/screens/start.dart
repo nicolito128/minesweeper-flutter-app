@@ -54,7 +54,7 @@ class _StartScreenState extends State<StartScreen> {
 
             const SizedBox(height: 30),
 
-            ElevatedButton.icon(
+            /*ElevatedButton.icon(
               icon: Icon(
                 Icons.settings_cell_rounded,
                 color: palette.background,
@@ -78,8 +78,7 @@ class _StartScreenState extends State<StartScreen> {
                 );
                 setState(() {});
               },
-            ),
-
+            ), */
             const SizedBox(height: 20),
           ],
         ),

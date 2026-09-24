@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:minesweeper/settings.dart';
 import 'package:minesweeper/domain/cell.dart';
 import 'package:minesweeper/domain/game.dart';
-import 'package:minesweeper/utils/colors.dart';
+import 'package:minesweeper/utils/themes.dart';
 import 'package:minesweeper/widgets/cell.dart';
 
 enum TargetAction { revealCell, putFlag }

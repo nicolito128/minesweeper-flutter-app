@@ -9,6 +9,7 @@ void main() async {
 
   await UserPreferences.init();
   await AudioManager.init();
+  await AudioManager.playBackgroundMusic();
 
   runApp(const App());
 }

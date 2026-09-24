@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minesweeper/settings.dart';
-import 'package:minesweeper/utils/colors.dart';
+import 'package:minesweeper/utils/themes.dart';
 import 'package:minesweeper/utils/preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
